@@ -30,7 +30,7 @@
         <tbody>
         {% for coin in coins %}
             <tr>
-                <th>{{ coin.rank }}</th>
+                <th>{{ coin.cmc_rank }}</th>
                 <th>{{ coin.name }}</th>
                 <th>{{ coin.symbol }}</th>
                 <th>{{ coin.quote.USD.price |number_format(2, '.', ',') }}</th>
