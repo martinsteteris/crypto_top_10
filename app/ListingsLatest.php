@@ -11,13 +11,15 @@ class ListingsLatest implements Listings
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
         $parameters = [
             'start' => '1',
-            'limit' => '100',
+            'limit' => '10',
             'convert' => 'USD'
         ];
 
         $headers = [
             'Accepts: application/json',
-            'X-CMC_PRO_API_KEY: 35c2b5f0-72d1-419a-94b4-1b67337f484c'
+            "X-CMC_PRO_API_KEY: 35c2b5f0-72d1-419a-94b4-1b67337f484c"
+//            "X-CMC_PRO_API_KEY: " . $_ENV['API_KEY']
+
         ];
         $qs = http_build_query($parameters); // query string encode the parameters
         $request = "{$url}?{$qs}"; // create the request URL
@@ -34,7 +36,7 @@ class ListingsLatest implements Listings
         $response = curl_exec($curl); // Send the request, save the response
         $data =  (json_decode($response)); // print json decoded response
         curl_close($curl); // Close request
-        $loader = new FilesystemLoader('view');
+        $loader = new FilesystemLoader('Views');
         $twig = new Environment($loader);
         return $twig->render('index.twig', ['coins' => $data->data]);
     }

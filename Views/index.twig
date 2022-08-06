@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Cryptos List{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div class="container">
+        <h1>Crypto prices today</h1>
+    </div>
+    <div class="container container-fluid">
+        <table class="table table-hover table-striped">
+            <thead class="table-head">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Price/USD</th>
+                <th scope="col">1h</th>
+                <th scope="col">24h</th>
+                <th scope="col">7d</th>
+                <th scope="col">Market cap</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for coin in coins %}
+                <tr>
+                    <td>{{ coin.cmc_rank }}</td>
+                    <td><img src="https://cryptoicons.org/api/icon/{{ coin.symbol }}/200" alt="icon"></td>
+                    <td>{{ coin.name }}</td>
+                    <td>{{ coin.symbol }}</td>
+                    <td>{{ coin.quote.USD.price |number_format(2, '.', ',') }}</td>
+                    <td>{{ coin.quote.USD.percent_change_1h |number_format(2, '.', ',') }}</td>
+                    <td>{{ coin.quote.USD.percent_change_24h |number_format(2, '.', ',') }}</td>
+                    <td>{{ coin.quote.USD.percent_change_7d |number_format(2, '.', ',') }}</td>
+                    <td>{{ coin.quote.USD.market_cap |number_format(2, '.', ',') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
+
+</body>
+</html>

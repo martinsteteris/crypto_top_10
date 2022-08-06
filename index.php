@@ -3,9 +3,11 @@
 require_once  "vendor/autoload.php";
 use App\ListingsLatest;
 use App\Listings;
+//$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+//$dotenv->load();
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/latest', ListingsLatest::class);
+    $r->addRoute('GET', '/', ListingsLatest::class);
 });
 
 // Fetch method and URI from somewhere
@@ -30,13 +32,12 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
+        [$controller, $method] = explode('@', $handler);
         $handler = new $handler;
         if ($handler  instanceof Listings) {
-//            echo '<pre>' . var_export($handler->getData(), true) . '</pre>';
+
             echo $handler->getData();
         }
-
-        // ... call $handler with $vars
         break;
 }
 
