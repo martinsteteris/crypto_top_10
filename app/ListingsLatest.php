@@ -6,6 +6,9 @@ use Twig\Loader\FilesystemLoader;
 class ListingsLatest implements Listings
 {
 
+    public function home(){
+        var_dump('roof');
+    }
     public function getData():string
     {
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
@@ -21,20 +24,20 @@ class ListingsLatest implements Listings
 //            "X-CMC_PRO_API_KEY: " . $_ENV['API_KEY']
 
         ];
-        $qs = http_build_query($parameters); // query string encode the parameters
-        $request = "{$url}?{$qs}"; // create the request URL
+        $qs = http_build_query($parameters);
+        $request = "{$url}?{$qs}";
 
 
-        $curl = curl_init(); // Get cURL resource
-// Set cURL options
+        $curl = curl_init();
+
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $request,            // set the request URL
-            CURLOPT_HTTPHEADER => $headers,     // set the headers
-            CURLOPT_RETURNTRANSFER => 1         // ask for raw response instead of bool
+            CURLOPT_URL => $request,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_RETURNTRANSFER => 1
         ));
 
-        $response = curl_exec($curl); // Send the request, save the response
-        $data =  (json_decode($response)); // print json decoded response
+        $response = curl_exec($curl);
+        $data =  (json_decode($response));
         curl_close($curl); // Close request
         $loader = new FilesystemLoader('Views');
         $twig = new Environment($loader);
