@@ -6,6 +6,9 @@ use Twig\Loader\FilesystemLoader;
 class ListingsLatest implements Listings
 {
 
+    public function home(){
+        var_dump('roof');
+    }
     public function getData():string
     {
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
